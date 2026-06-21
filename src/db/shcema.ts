@@ -1,4 +1,3 @@
-import { entries, seleUserSchema } from './shcema';
 import {
     pgTable,
     uuid,
