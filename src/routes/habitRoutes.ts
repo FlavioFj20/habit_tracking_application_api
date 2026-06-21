@@ -1,4 +1,14 @@
-import { Router } from 'express'
+import { Router } from 'express';
+import { validateBody, validateParams, validateQuery } from '../middleware/validations.ts';
+import { z } from 'zod';
+
+const createHabitSchema = z.object({
+    name: z.string(),
+});
+
+const completeParamsSchema = z.object({
+     id: z.string().max(3),
+});
 
 const router = Router()
 
@@ -10,7 +20,7 @@ router.get('/:id', (req, res) => {
     res.json({ message: 'got one habit' })
 })
 
-router.post('/', (req, res) => {
+router.post('/', validateBody(createHabitSchema), (req, res) => {
     res.json({ message: 'created habit' }).status(201)
 })
 
@@ -18,8 +28,11 @@ router.delete('/:id', (req, res) => {
     res.json({ message: 'deleted habit' })
 })
 
-router.post('/:id/complete', (req, res) => {
-    res.json({ message: 'completed habit' })
+router.post('/:id/complete', 
+    validateParams(completeParamsSchema), 
+    validateBody(createHabitSchema),
+    (req, res) => {
+        res.json({ message: 'completed habit' })
 })
 
 export default router
