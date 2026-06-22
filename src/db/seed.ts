@@ -1,3 +1,4 @@
+import { hashPassword } from '../utils/password.ts'
 import {db} from './connection.ts'
 import { users, habits, entries, tags, habitTags} from './schema.ts'
 
@@ -16,7 +17,7 @@ const seed = async () => {
             .insert(users)
             .values({
             email: 'demo@app.com',
-            password: 'password',
+            password: await hashPassword('password'),
             firstName: 'demo',
             lastName: 'person',
             username: 'demo'

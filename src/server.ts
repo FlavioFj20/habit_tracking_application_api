@@ -18,7 +18,7 @@ app.use(morgan('dev', {
 
 
 app.get('/health', (req, res) => {
-    res.json({message: 'hello'}).status(200)
+    res.status(200).json({message: 'hello'})
 })
 
 app.use('/api/auth', authRoutes)

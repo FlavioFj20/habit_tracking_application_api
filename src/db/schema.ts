@@ -50,7 +50,7 @@ export const tags = pgTable('tags', {
     id: uuid('id').primaryKey().defaultRandom(),
     //habitId: uuid('habit_id').references(() => habits.id, {onDelete: 'cascade'}).notNull(),
     name: varchar('name', { length: 100}).notNull().unique(),
-    color: varchar('color', { length: 7}).default('#6b7280 '),
+    color: varchar('color', { length: 7}).default('#6b7280'),
     createAt: timestamp('created_at').defaultNow().notNull(),
     updateAt: timestamp('update_at').defaultNow().notNull(),
 })

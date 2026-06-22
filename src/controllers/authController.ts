@@ -20,7 +20,7 @@ export const register = async (
         id: users.id,
         email: users.email,
         username: users.username,
-        firsName: users.firstName,
+        firstName: users.firstName,
         lastName: users.lastName,
         createAt: users.createAt,
     })
@@ -36,7 +36,6 @@ export const register = async (
         user,
         token,
     })
-    console.log()
   } catch (e) {
     console.error('Registration error', e)
     res.status(500).json({ error: 'Failed to create user' })

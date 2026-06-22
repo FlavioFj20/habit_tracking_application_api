@@ -15,7 +15,7 @@ export const authenticateToken = async (
     const token = authHeader && authHeader.split(' ')[1]
 
     if (!token) {
-      return res.status(401).json({ erro: 'Bad Request' })
+      return res.status(401).json({ error: 'Bad Request' })
     }
 
     const payload = await verifyToken(token)

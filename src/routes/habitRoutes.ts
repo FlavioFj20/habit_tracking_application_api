@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', validateBody(createHabitSchema), (req, res) => {
-    res.json({ message: 'created habit' }).status(201)
+    res.status(201).json({ message: 'created habit' })
 })
 
 router.delete('/:id', (req, res) => {
