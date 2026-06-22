@@ -40,7 +40,7 @@ export const habits = pgTable('habits', {
 export const entries = pgTable('entries', {
     id: uuid('id').primaryKey().defaultRandom(),
     habitId: uuid('habit_id').references(() => habits.id, {onDelete: 'cascade'}).notNull(),
-    name: varchar('name', { length: 100}).notNull(),
+    //name: varchar('name', { length: 100}).notNull(),
     completionDate: timestamp('completion_date').defaultNow().notNull(),
     note: text('note'),
     createAt: timestamp('created_at').defaultNow().notNull(),
@@ -48,10 +48,11 @@ export const entries = pgTable('entries', {
 
 export const tags = pgTable('tags', {
     id: uuid('id').primaryKey().defaultRandom(),
-    habitId: uuid('habit_id').references(() => habits.id, {onDelete: 'cascade'}).notNull(),
-    name: varchar('name', { length: 100}).notNull(),
-    color: varchar('color', { length: 7}).default('#6b7280 ').notNull(),
+    //habitId: uuid('habit_id').references(() => habits.id, {onDelete: 'cascade'}).notNull(),
+    name: varchar('name', { length: 100}).notNull().unique(),
+    color: varchar('color', { length: 7}).default('#6b7280 '),
     createAt: timestamp('created_at').defaultNow().notNull(),
+    updateAt: timestamp('update_at').defaultNow().notNull(),
 })
 
 export const habitTags = pgTable('habit_tags', {
@@ -95,6 +96,7 @@ export const habitTagsRelations = relations(habitTags, ({one}) => ({
 }))
 
 export type User = typeof users.$inferSelect
+export type NewUser = typeof users.$inferInsert
 export type Habit = typeof habits.$inferSelect
 export type Entry = typeof entries.$inferSelect
 export type Tag = typeof tags.$inferSelect
